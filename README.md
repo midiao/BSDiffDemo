@@ -1,2 +1,2 @@
 # BSDiffDemo
-Android BSDiff
+Android增量更新方案
