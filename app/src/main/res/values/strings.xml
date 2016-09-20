@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BSDiffDemo</string>
+    <string name="before_update">Before Update</string>
+    <string name="after_update">After Update</string>
 </resources>

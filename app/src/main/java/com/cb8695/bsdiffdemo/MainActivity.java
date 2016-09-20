@@ -3,7 +3,6 @@ package com.cb8695.bsdiffdemo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,10 +16,9 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String PATH = Environment.getExternalStorageDirectory() + File.separator;
     private static final String NEW_APK_PATH = PATH + "bsdiff.apk";
-    private static final String PATCH_PATH = PATH + "bsdiff.patch";
+    private static final String PATCH_PATH = "/sdcard/Download/" + "bsdiff.patch";
 
     private Button mButtonPatch;
-    private Button mButtonTest;
     private String oldApkPath;
     private static final String TAG = "MainActivity";
 
@@ -35,18 +33,14 @@ public class MainActivity extends AppCompatActivity {
         mButtonPatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int patchResult = PatchUtils.patch(oldApkPath, NEW_APK_PATH, PATCH_PATH);
-                ApkUtils.installApk(MainActivity.this, NEW_APK_PATH);
+                File patchFile = new File(PATCH_PATH);
+                if (patchFile.exists()) {
+                    int patchResult = PatchUtils.patch(oldApkPath, NEW_APK_PATH, PATCH_PATH);
+                    ApkUtils.installApk(MainActivity.this, NEW_APK_PATH);
+                } else {
+                    Toast.makeText(MainActivity.this, "差异文件不存在,无法合并", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        mButtonTest = (Button) findViewById(R.id.test);
-        mButtonTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "TEST 2", Toast.LENGTH_SHORT).show();
-            }
-        });
-        Log.d(TAG, "oldApkPath = " + oldApkPath);
-        Log.d(TAG, "path = " + Environment.getExternalStorageDirectory());
     }
 }
