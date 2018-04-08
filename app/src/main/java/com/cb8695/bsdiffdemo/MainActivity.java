@@ -3,6 +3,7 @@ package com.cb8695.bsdiffdemo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         oldApkPath = ApkUtils.getSourceApkPath(this, this.getPackageName());
+        Log.d(TAG, "old path = " + oldApkPath);
 
         mButtonPatch = (Button) findViewById(R.id.bspatch);
         mButtonPatch.setOnClickListener(new View.OnClickListener() {

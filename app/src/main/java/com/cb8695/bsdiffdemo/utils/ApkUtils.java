@@ -24,9 +24,12 @@ public class ApkUtils {
         }
         return null;
     }
-    public static void installApk(Context context, String apkPath){
+
+    public static void installApk(Context context, String apkPath) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
         context.startActivity(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
